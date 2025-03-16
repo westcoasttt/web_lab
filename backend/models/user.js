@@ -1,5 +1,6 @@
-const { DataTypes, DATE } = require('sequelize')
-const { sequelize } = require('../config/db')
+import { DataTypes } from 'sequelize'
+import { sequelize } from '../config/db.js'
+import bcrypt from 'bcryptjs'
 
 const User = sequelize.define(
 	'User',
@@ -25,9 +26,24 @@ const User = sequelize.define(
 			type: DataTypes.DATE,
 			defaultValue: DataTypes.NOW,
 		},
+		password: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 	},
 	{
-		timestamps: false,
+		timestamps: true,
+		hooks: {
+			beforeCreate: async user => {
+				user.password = await bcrypt.hash(user.password, 10)
+			},
+			beforeUpdate: async user => {
+				if (user.changed('password')) {
+					user.password = await bcrypt.hash(user.password, 10)
+				}
+			},
+		},
 	}
 )
-module.exports = User
+
+export default User

@@ -1,10 +1,8 @@
-const User = require('./user')
-const Event = require('./event')
-const { sequelize } = require('../config/db')
+import { sequelize } from '../config/db.js'
+import User from './user.js'
+import Event from './event.js'
+import LoginHistory from './loginhistory.js'
 
-// Настраиваем связь "один ко многим"
-User.hasMany(Event, { foreignKey: 'createdBy', onDelete: 'CASCADE' })
-Event.belongsTo(User, { foreignKey: 'createdBy' })
 async function syncModels() {
 	try {
 		await sequelize.sync({ alter: true }) // Создаёт/обновляет таблицы в БД
@@ -13,4 +11,4 @@ async function syncModels() {
 	}
 }
 
-module.exports = { sequelize, syncModels, User, Event }
+export { sequelize, syncModels, User, LoginHistory, Event }
