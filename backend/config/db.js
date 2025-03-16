@@ -1,5 +1,9 @@
-require('dotenv').config()
-const { Sequelize } = require('sequelize')
+import dotenv from 'dotenv' // загружаем переменные из .env
+import { Sequelize } from 'sequelize'
+
+dotenv.config()
+
+// Создаем объект Sequelize
 const sequelize = new Sequelize(
 	process.env.DB_NAME,
 	process.env.DB_USER,
@@ -8,9 +12,11 @@ const sequelize = new Sequelize(
 		host: process.env.DB_HOST,
 		port: process.env.DB_PORT,
 		dialect: 'postgres',
-		logging: false,
+		logging: false, // Отключаем логи SQL-запросов
 	}
 )
+
+// Функция проверки подключения
 async function testConnection() {
 	try {
 		await sequelize.authenticate()
@@ -20,4 +26,5 @@ async function testConnection() {
 		throw error
 	}
 }
-module.exports = { sequelize, testConnection }
+
+export { sequelize, testConnection } // Экспорт объекта для использования в модулях

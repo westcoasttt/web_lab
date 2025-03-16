@@ -1,5 +1,5 @@
-const swaggerJsDoc = require('swagger-jsdoc')
-const swaggerUi = require('swagger-ui-express')
+import swaggerJsDoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
 
 const options = {
 	definition: {
@@ -13,13 +13,13 @@ const options = {
 		servers: [
 			{ url: 'http://localhost:5000' },
 			{
-				url: 'http://localhost:3000',
+				url: 'http://localhost:3000', // Локальный сервер
 			},
 		],
 	},
-	apis: ['./routes/*.js'],
+	apis: ['./routes/*.js'], // Путь к файлам с маршрутами, где будут комментарии Swagger
 }
 
 const swaggerSpec = swaggerJsDoc(options)
 
-module.exports = { swaggerUi, swaggerSpec }
+export { swaggerUi, swaggerSpec }

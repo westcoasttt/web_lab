@@ -1,6 +1,8 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import User from '../models/user.js'
+import sendEmail from '../utils/sendEmail.js'
+import LoginHistory from '../models/loginhistory.js'
 
 export const register = async (req, res) => {
 	const { email, name, password } = req.body
@@ -25,6 +27,12 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
 	const { email, password } = req.body
+	const userIP = (
+		req.headers['x-forwarded-for'] ||
+		req.connection.remoteAddress ||
+		''
+	).split(',')[0]
+	const userAgent = req.headers['user-agent']
 
 	if (!email || !password) {
 		return res.status(400).json({ message: 'Заполните все поля' })
@@ -47,6 +55,40 @@ export const login = async (req, res) => {
 			process.env.JWT_SECRET,
 			{ expiresIn: '1h' } // срок действия токена
 		)
+
+		// Получаем последние N записей о входах пользователя
+		const lastLogins = await LoginHistory.findAll({
+			where: { userId: user.id },
+			limit: 5, // например, последние 5 записей
+			order: [['createdAt', 'DESC']], // сортируем по времени
+		})
+
+		let isNewDeviceOrIP = true
+
+		// Проверяем на наличие совпадений по IP и User-Agent
+		for (const login of lastLogins) {
+			if (login.ip === userIP && login.userAgent === userAgent) {
+				isNewDeviceOrIP = false
+				break
+			}
+		}
+
+		// Если новый IP-адрес или устройство
+		if (isNewDeviceOrIP) {
+			// Отправляем email-уведомление
+			await sendEmail(
+				user.email,
+				'Новый вход в ваш аккаунт',
+				`Мы заметили, что вы вошли в свой аккаунт с нового устройства или местоположения. Если это были не вы, пожалуйста, измените пароль.`
+			)
+
+			// Сохраняем информацию о новом входе
+			await LoginHistory.create({
+				userId: user.id,
+				ip: userIP,
+				userAgent: userAgent,
+			})
+		}
 
 		res.status(200).json({ message: 'Вход успешен', token })
 	} catch (error) {
