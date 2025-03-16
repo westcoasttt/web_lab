@@ -1,30 +1,39 @@
-require('dotenv').config() // Загружаем переменные окружения из .env
-const { sequelize, testConnection } = require('./config/db')
-const { syncModels } = require('./models')
-const express = require('express') //Подключаем express - для работы с сервером
-const cors = require('cors') // Подключаем CORS для разрешения внешних запросов(с других)
-const app = express() // Создаем экземпляр Express - объект приложения
-const { swaggerUi, swaggerSpec } = require('./swagger')
+import dotenv from 'dotenv'
+import express from 'express'
+import publicRouter from './routes/public.js'
+import authRouter from './routes/auth.js'
+import passport from './config/passport.js'
+import { sequelize, testConnection } from './config/db.js'
+import { syncModels } from './models/index.js'
+import cors from 'cors'
+import morgan from 'morgan'
+import usersRouter from './routes/users.js'
+import eventsRouter from './routes/events.js'
+import { swaggerUi, swaggerSpec } from './swagger.js'
+
+dotenv.config()
+
+const app = express()
 const PORT = process.env.PORT
+const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS.split(',')
+
+app.use(passport.initialize())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 console.log(
 	'Swagger-документация доступна по адресу: http://localhost:5000/api-docs'
 )
-const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS.split(',')
-// Настройка CORS с использованием переменных окружения
+
 const corsOptions = {
-	origin: process.env.CORS_ALLOWED_ORIGINS.split(','), // Доверенные домены из .env
-	methods: ['GET', 'POST'], // Разрешаем только GET и POST
-	allowedHeaders: ['Content-Type', 'Authorization'], // Разрешаем только нужные заголовки
+	origin: allowedOrigins,
+	methods: ['GET', 'POST'],
+	allowedHeaders: ['Content-Type', 'Authorization'],
 	preflightContinue: false,
 	optionsSuccessStatus: 204,
 }
-// Кастомный middleware для ограничения методов DELETE и PUT
+
 app.use((req, res, next) => {
 	const origin = req.headers.origin
 	const isLocalhost = !origin || origin.includes('localhost')
-
-	// Проверяем, есть ли origin в списке доверенных доменов
 	const isTrustedOrigin = allowedOrigins.includes(origin)
 
 	if (
@@ -36,23 +45,28 @@ app.use((req, res, next) => {
 			.status(403)
 			.json({ error: 'Методы DELETE и PUT запрещены для внешних клиентов' })
 	}
-
 	next()
 })
-app.use(express.json()) // Позволяет серверу обрабатывать JSON-запросы
 
+app.use(express.json())
 app.use(cors(corsOptions))
-
-const morgan = require('morgan')
 app.use(morgan('[ :method ] :url :status :response-time ms'))
 
-const usersRouter = require('./routes/users') // Импорт маршрутов пользователей
-const eventsRouter = require('./routes/events') // Импорт маршрутов мероприятий
 app.get('/', (req, res) => {
 	res.json({ message: 'Сервер работает! 🚀' })
 })
-app.use('/api', eventsRouter)
-app.use('/api', usersRouter)
+
+app.use('/api/auth', authRouter)
+app.use('/api/public', publicRouter)
+app.use('/api/events', eventsRouter)
+app.use('/api/user', usersRouter)
+app.use((err, req, res, next) => {
+	if (err instanceof SyntaxError) {
+		return res.status(400).json({ error: 'Неверный формат JSON' })
+	}
+	next(err)
+})
+
 app.use((req, res, next) => {
 	res.status(404).json({
 		error: 'Not Found',
@@ -76,4 +90,5 @@ async function startServer() {
 		process.exit(1)
 	}
 }
+
 startServer()
