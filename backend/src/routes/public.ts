@@ -1,7 +1,7 @@
-import express from 'express'
-import { getAllEvents, getEventById } from '../controllers/eventController.js'
+import express from 'express';
+import { getAllEvents, getEventById } from '../controllers/eventController';
 
-const router = express.Router()
+const router = express.Router();
 
 /**
  * @swagger
@@ -33,7 +33,7 @@ const router = express.Router()
  *       500:
  *         description: Ошибка сервера
  */
-router.get('/', getAllEvents)
+router.get('/', getAllEvents);
 
 /**
  * @swagger
@@ -80,6 +80,6 @@ router.get('/', getAllEvents)
  *         description: Ошибка сервера
  */
 
-router.get('/:id', getEventById)
+router.get('/:id', getEventById);
 
-export default router
+export default router;
