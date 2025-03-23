@@ -1,7 +1,7 @@
-import express from 'express'
-import { register, login } from '../controllers/authController.js'
+import express, { Request, Response } from 'express';
+import { register, login } from '../controllers/authController';
 
-const router = express.Router()
+const router = express.Router();
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ const router = express.Router()
  *       500:
  *         description: Ошибка сервера
  */
-router.post('/register', register)
+router.post('/register', register);
 /**
  * @swagger
  * /api/auth/login:
@@ -114,6 +114,6 @@ router.post('/register', register)
  *       500:
  *         description: Ошибка сервера
  */
-router.post('/login', login)
+router.post('/login', login);
 
-export default router
+export default router;

@@ -1,9 +1,9 @@
-import express from 'express'
-import passport from 'passport'
-import { getUser, updateUser } from '../controllers/userController.js'
+import express from 'express';
+import passport from 'passport';
+import { getUser, updateUser } from '../controllers/userController';
 
-const router = express.Router()
-router.use(passport.authenticate('jwt', { session: false }))
+const router = express.Router();
+router.use(passport.authenticate('jwt', { session: false }));
 
 /**
  * @swagger
@@ -25,7 +25,7 @@ router.use(passport.authenticate('jwt', { session: false }))
  *         description: Ошибка сервера
  */
 
-router.get('/', getUser)
+router.get('/', getUser);
 
 /**
  * @swagger
@@ -57,6 +57,6 @@ router.get('/', getUser)
  */
 
 // Обновить информацию о пользователе (требуется авторизация)
-router.put('/', updateUser)
+router.put('/', updateUser);
 
-export default router
+export default router;

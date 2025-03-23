@@ -1,13 +1,13 @@
-import express from 'express'
-import passport from '../config/passport.js'
+import express from 'express';
+import passport from '../config/passport.js';
 
 import {
-	createEvent,
-	updateEvent,
-	deleteEvent,
-} from '../controllers/eventController.js'
-const router = express.Router()
-router.use(passport.authenticate('jwt', { session: false }))
+  createEvent,
+  updateEvent,
+  deleteEvent,
+} from '../controllers/eventController.js';
+const router = express.Router();
+router.use(passport.authenticate('jwt', { session: false }));
 
 /**
  * @swagger
@@ -52,7 +52,7 @@ router.use(passport.authenticate('jwt', { session: false }))
  *       500:
  *         description: Ошибка сервера
  */
-router.post('/', createEvent)
+router.post('/', createEvent);
 /**
  * @swagger
  * /api/events/{id}:
@@ -97,7 +97,7 @@ router.post('/', createEvent)
  *         description: Ошибка сервера
  */
 
-router.put('/:id', updateEvent)
+router.put('/:id', updateEvent);
 
 /**
  * @swagger
@@ -123,6 +123,6 @@ router.put('/:id', updateEvent)
  *         description: Ошибка сервера
  */
 
-router.delete('/:id', deleteEvent)
+router.delete('/:id', deleteEvent);
 
-export default router
+export default router;
