@@ -1,7 +1,7 @@
-import { sequelize } from '../config/db.js';
-import User from './user.js';
-import Event from './event.js';
-import LoginHistory from './loginhistory.js';
+import { sequelize } from '../config/db';
+import User from './user';
+import Event from './event';
+import LoginHistory from './loginhistory';
 
 async function syncModels(): Promise<void> {
   try {
