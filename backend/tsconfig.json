@@ -2,6 +2,14 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
+    "baseUrl": "./src",
+    "paths": {
+      "@models/*": ["models/*"],
+      "@controllers/*": ["controllers/*"],
+      "@utils/*": ["utils/*"],
+      "@routes/*": ["routes/*"],
+      "@config/*": ["config/*"]
+    },
 
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

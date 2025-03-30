@@ -11,8 +11,10 @@ interface EventAttributes {
   createdBy: string;
 }
 
+type EventCreationAttributes = Optional<EventAttributes, 'id'>;
+
 class Event
-  extends Model<EventAttributes, Optional<EventAttributes, 'id'>>
+  extends Model<EventAttributes, EventCreationAttributes>
   implements EventAttributes
 {
   public id!: string;
@@ -62,6 +64,7 @@ Event.init(
   },
 );
 
+// Устанавливаем связи
 User.hasMany(Event, { foreignKey: 'createdBy', onDelete: 'CASCADE' });
 Event.belongsTo(User, { foreignKey: 'createdBy' });
 

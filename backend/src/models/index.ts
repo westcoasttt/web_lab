@@ -1,4 +1,4 @@
-import { sequelize } from '../config/db';
+import { sequelize } from '@config/db';
 import User from './user';
 import Event from './event';
 import LoginHistory from './loginhistory';
