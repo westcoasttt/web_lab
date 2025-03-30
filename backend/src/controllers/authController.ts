@@ -25,7 +25,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({ email, name, password: hashedPassword });
+    await User.create({
+      email,
+      name,
+      password: hashedPassword,
+    });
 
     res.status(201).json({ message: 'Регистрация успешна' });
   } catch (error) {
@@ -58,7 +62,10 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({
+      where: { email },
+      attributes: ['id', 'email', 'password'],
+    });
     if (!user) {
       res.status(400).json({ message: 'Пользователь не найден' });
       return;

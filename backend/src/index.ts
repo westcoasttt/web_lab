@@ -3,7 +3,7 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 import publicRouter from './routes/public';
 import authRouter from './routes/auth';
 import passport from './config/passport';
-import { sequelize, testConnection } from './config/db';
+import { testConnection } from './config/db';
 import { syncModels } from './models/index';
 import cors, { CorsOptions } from 'cors';
 import morgan from 'morgan';
