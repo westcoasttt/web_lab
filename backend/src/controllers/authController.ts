@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../models/user';
-import sendEmail from '../utils/sendEmail';
-import LoginHistory from '../models/loginhistory';
+import User from '@models/user';
+import sendEmail from '@utils/sendEmail';
+import LoginHistory from '@models/loginhistory';
 import { JwtPayload } from 'jsonwebtoken';
 
 interface TokenPayload extends JwtPayload {

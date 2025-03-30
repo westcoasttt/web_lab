@@ -1,5 +1,5 @@
 import { DataTypes, Model, ForeignKey } from 'sequelize';
-import { sequelize } from '../config/db';
+import { sequelize } from '@config/db';
 import User from './user';
 
 // Определяем типы для атрибутов

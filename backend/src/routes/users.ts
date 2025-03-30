@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import passport from 'passport';
-import { getUser, updateUser } from '../controllers/userController';
+import { getUser, updateUser } from '@controllers/userController';
 
 const router = express.Router();
 interface AuthenticatedRequest extends Request {

@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import passport from '../config/passport';
+import passport from '@config/passport';
 
 import {
   createEvent,

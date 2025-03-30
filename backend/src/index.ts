@@ -1,14 +1,14 @@
 import dotenv from 'dotenv';
 import express, { Application, Request, Response, NextFunction } from 'express';
-import publicRouter from './routes/public';
-import authRouter from './routes/auth';
-import passport from './config/passport';
-import { testConnection } from './config/db';
-import { syncModels } from './models/index';
+import publicRouter from '@routes/public';
+import authRouter from '@routes/auth';
+import passport from '@config/passport';
+import { testConnection } from '@config/db';
+import { syncModels } from '@models/index';
 import cors, { CorsOptions } from 'cors';
 import morgan from 'morgan';
-import usersRouter from './routes/users';
-import eventsRouter from './routes/events';
+import usersRouter from '@routes/users';
+import eventsRouter from '@routes/events';
 import { swaggerUi, swaggerSpec } from './swagger';
 
 dotenv.config();

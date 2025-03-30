@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Event, User } from '../models/index';
+import { Event, User } from '@models/index';
 
 interface AuthenticatedRequest extends Request {
   user?: { id: string }; // Указываем, что у `req.user` есть `id`
