@@ -11,10 +11,8 @@ interface EventAttributes {
   createdBy: string;
 }
 
-interface EventCreationAttributes extends Optional<EventAttributes, 'id'> {}
-
 class Event
-  extends Model<EventAttributes, EventCreationAttributes>
+  extends Model<EventAttributes, Optional<EventAttributes, 'id'>>
   implements EventAttributes
 {
   public id!: string;

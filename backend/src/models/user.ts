@@ -1,43 +1,37 @@
-import {
-  DataTypes,
-  Model,
-  InferAttributes,
-  InferCreationAttributes,
-} from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../config/db';
 import bcrypt from 'bcryptjs';
 
-// Описание атрибутов модели
-interface UserAttributes extends InferAttributes<User> {
+interface UserAttributes {
   id: string;
   name: string;
   email: string;
   password: string;
-  createdAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-interface UserCreationAttributes
-  extends Omit<UserAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
+// Используем Omit для исключения id, createdAt, и updatedAt при создании нового пользователя
+type UserCreationAttributes = Omit<
+  UserAttributes,
+  'id' | 'createdAt' | 'updatedAt'
+>;
 
-class User
-  extends Model<UserAttributes, UserCreationAttributes>
-  implements UserAttributes
-{
-  public id!: string;
-  public name!: string;
-  public email!: string;
-  public password!: string;
-  public readonly createdAt!: Date;
+class User extends Model<UserAttributes, UserCreationAttributes> {
+  declare id: string;
+  declare name: string;
+  declare email: string;
+  declare password: string;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 
-  // Хук для хеширования пароля
   static async hashPassword(user: User) {
-    if (user.changed('password')) {
+    if (user.password && user.changed('password')) {
       user.password = await bcrypt.hash(user.password, 10);
     }
   }
 }
 
-// Определение модели
 User.init(
   {
     id: {
@@ -63,6 +57,12 @@ User.init(
     },
     createdAt: {
       type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
       defaultValue: DataTypes.NOW,
     },
   },
@@ -71,8 +71,16 @@ User.init(
     modelName: 'User',
     timestamps: true,
     hooks: {
-      beforeCreate: User.hashPassword,
-      beforeUpdate: User.hashPassword,
+      beforeCreate: async (user) => {
+        if (user.password) {
+          user.password = await bcrypt.hash(user.password, 10);
+        }
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed('password')) {
+          user.password = await bcrypt.hash(user.password, 10);
+        }
+      },
     },
   },
 );

@@ -1,25 +1,21 @@
-import {
-  DataTypes,
-  Model,
-  InferAttributes,
-  InferCreationAttributes,
-  ForeignKey,
-} from 'sequelize';
+import { DataTypes, Model, ForeignKey } from 'sequelize';
 import { sequelize } from '../config/db';
 import User from './user';
 
-// Интерфейс атрибутов модели
-interface LoginHistoryAttributes extends InferAttributes<LoginHistory> {
+// Определяем типы для атрибутов
+type LoginHistoryAttributes = {
   id: number;
   userId: ForeignKey<User['id']>;
   ip: string;
   userAgent: string;
   createdAt: Date;
-}
+};
 
-// Интерфейс атрибутов для создания нового входа
-interface LoginHistoryCreationAttributes
-  extends Omit<LoginHistoryAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
+// Используем Omit для исключения 'id' и 'createdAt' из типа создания записи
+type LoginHistoryCreationAttributes = Omit<
+  LoginHistoryAttributes,
+  'id' | 'createdAt'
+>;
 
 class LoginHistory extends Model<
   LoginHistoryAttributes,
@@ -32,7 +28,6 @@ class LoginHistory extends Model<
   public readonly createdAt!: Date;
 }
 
-// Определение модели
 LoginHistory.init(
   {
     id: {

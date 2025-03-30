@@ -1,4 +1,4 @@
-import nodemailer, { SentMessageInfo } from 'nodemailer';
+import nodemailer from 'nodemailer';
 
 // Интерфейс для параметров email
 interface EmailOptions {

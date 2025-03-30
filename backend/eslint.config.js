@@ -14,7 +14,6 @@ export default defineConfig([
     files: ['**/*.{js,mjs,cjs,ts}'],
     plugins: { js },
     extends: ['js/recommended'],
-    ignores: ['dist/'],
   },
   tseslint.configs.recommended,
 ]);
