@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import dotenv from 'dotenv';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import publicRouter from '@routes/public';
