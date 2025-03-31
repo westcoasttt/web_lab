@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "module-alias": "^2.2.3",
     "morgan": "^1.10.0",
     "nodemailer": "^6.10.0",
     "passport": "^0.7.0",
@@ -65,5 +66,12 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "_moduleAliases": {
+    "@models": "./dist/models",
+    "@controllers": "./dist/controllers",
+    "@utils": "./dist/utils",
+    "@routes": "./dist/routes",
+    "@config": "./dist/config"
   }
 }

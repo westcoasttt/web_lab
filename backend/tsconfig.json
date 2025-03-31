@@ -10,7 +10,7 @@
       "@routes/*": ["routes/*"],
       "@config/*": ["config/*"]
     },
-
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
