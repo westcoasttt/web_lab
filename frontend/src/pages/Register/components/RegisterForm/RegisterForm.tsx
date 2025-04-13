@@ -1,63 +1,54 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './RegisterForm.module.scss';
 import { registerUser } from '@/api/authService';
-import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    name: '',
-    password: '',
-  });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
 
     try {
-      const res = await registerUser(formData);
-      setSuccess(res.message);
-      setTimeout(() => navigate('/login'), 2000);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Ошибка регистрации');
+      await registerUser({ name, email, password });
+      navigate('/login');
+    } catch (error: any) {
+      console.error(error.message || 'Ошибка при регистрации');
     }
   };
 
+  const goToLogin = () => navigate('/login');
+
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <h2>Регистрация</h2>
+    <form onSubmit={handleSubmit} className={styles.registerForm}>
       <input
         type="text"
-        name="name"
         placeholder="Имя"
-        value={formData.name}
-        onChange={handleChange}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
       />
       <input
         type="email"
-        name="email"
-        placeholder="Почта"
-        value={formData.email}
-        onChange={handleChange}
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
       />
       <input
         type="password"
-        name="password"
         placeholder="Пароль"
-        value={formData.password}
-        onChange={handleChange}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
       />
       <button type="submit">Зарегистрироваться</button>
-      {error && <p className={styles.error}>{error}</p>}
-      {success && <p className={styles.success}>{success}</p>}
+      <button type="button" onClick={goToLogin} className={styles.linkButton}>
+        Уже есть аккаунт? Войти
+      </button>
     </form>
   );
 };
