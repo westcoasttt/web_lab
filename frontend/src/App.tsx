@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router';
-import Home from '@/pages/Home';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import Events from '@/pages/Events';
-import NotFound from '@pages/NotFound';
+import Home from '@/pages/Home/Home';
+import Login from '@/pages/Login/Login';
+import Register from '@/pages/Register/Register';
+import Events from '@/pages/Events/Events';
+import NotFound from '@/pages/NotFound/NotFound';
 import './App.css';
 
 const App = () => (

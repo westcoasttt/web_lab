@@ -1,13 +1,13 @@
-import React from 'react';
 import LoginForm from './components/LoginForm/LoginForm';
+import styles from './Login.module.scss';
 
-const LoginPage: React.FC = () => {
+const Login = () => {
   return (
-    <div>
-      <h1>Вход</h1>
+    <div className={styles.loginPage}>
+      <h1>Авторизация</h1>
       <LoginForm />
     </div>
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -1,44 +1,23 @@
-// src/api/authService.ts
+import axiosInstance from './axios';
+import {
+  LoginData,
+  LoginResponse,
+  RegisterData,
+  RegisterResponse,
+} from '@/types/authreg';
 
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-interface RegisterData {
-  email: string;
-  name: string;
-  password: string;
-}
-
-// Вход
-export const login = async (data: LoginData) => {
-  const res = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-
-  if (!res.ok) {
-    const errData = await res.json();
-    throw new Error(errData.message || 'Ошибка входа');
-  }
-
-  return res.json(); // { message, token }
+export const login = async (data: LoginData): Promise<LoginResponse> => {
+  const res = await axiosInstance.post<LoginResponse>('/auth/login', data);
+  console.log('Ответ от сервера:', res.data);
+  return res.data;
 };
 
-// Регистрация
-export const registerUser = async (data: RegisterData) => {
-  const res = await fetch('/api/auth/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-
-  if (!res.ok) {
-    const errData = await res.json();
-    throw new Error(errData.message || 'Ошибка регистрации');
-  }
-
-  return res.json(); // { message }
+export const registerUser = async (
+  data: RegisterData,
+): Promise<RegisterResponse> => {
+  const res = await axiosInstance.post<RegisterResponse>(
+    '/auth/register',
+    data,
+  );
+  return res.data;
 };

@@ -16,19 +16,20 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
   if (!email || !name || !password) {
     res.status(400).json({ message: 'Заполните все поля' });
+    return;
   }
+
   try {
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       res.status(400).json({ message: 'Email уже используется' });
+      return; // 👈 ОБЯЗАТЕЛЬНО добавь return
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
       email,
       name,
-      password: hashedPassword,
+      password,
     });
 
     res.status(201).json({ message: 'Регистрация успешна' });
@@ -64,7 +65,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.findOne({
       where: { email },
-      attributes: ['id', 'email', 'password'],
+      attributes: ['id', 'email', 'name', 'password'],
     });
     if (!user) {
       res.status(400).json({ message: 'Пользователь не найден' });
@@ -109,7 +110,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       });
     }
 
-    res.status(200).json({ message: 'Вход успешен', token });
+    res.status(200).json({ message: 'Вход успешен', token, name: user.name });
   } catch (error) {
     console.error('Ошибка при входе:', (error as Error).message || error);
     res.status(500).json({ message: 'Ошибка сервера' });
