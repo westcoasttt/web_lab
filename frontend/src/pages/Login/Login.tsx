@@ -4,7 +4,7 @@ import styles from './Login.module.scss';
 const Login = () => {
   return (
     <div className={styles.loginPage}>
-      <h1>Авторизация</h1>
+      <h1 className={styles.title}>Авторизация</h1>
       <LoginForm />
     </div>
   );

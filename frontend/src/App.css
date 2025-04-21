@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  min-height: 100vh;
 }
 
 .logo {
@@ -39,4 +40,12 @@
 
 .read-the-docs {
   color: #888;
+}
+/* Глобальный сброс отступов */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
 }

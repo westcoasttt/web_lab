@@ -68,7 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       attributes: ['id', 'email', 'name', 'password'],
     });
     if (!user) {
-      res.status(400).json({ message: 'Пользователь не найден' });
+      res.status(400).json({ message: 'Пользователь с таким email не найден' });
       return;
     }
 

@@ -1,0 +1,165 @@
+.header {
+  font-family: 'Arial', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #fff;
+  padding: 10px 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+
+  /* Логотип/название */
+  .logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0077cc;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Основная навигация */
+  .nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* Кнопки */
+  .button {
+    padding: 0.5rem 1rem;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+
+    &:hover {
+      background-color: #0066b3;
+    }
+  }
+
+  /* Имя пользователя */
+  .username {
+    font-weight: bold;
+    margin-right: 1rem;
+    white-space: nowrap;
+    color: #333;
+  }
+}
+
+/* === Адаптивность === */
+
+/* Маленькие планшеты и крупные телефоны (481px-768px) */
+@media (max-width: 768px) {
+  .header {
+    padding: 8px 0.8rem;
+
+    .nav {
+      gap: 0.8rem;
+    }
+    .button {
+      padding: 0.5rem 0.7rem; /* Еще более компактные отступы */
+      max-width: 160px; /* Уменьшаем максимальную ширину */
+      font-size: 0.9rem; /* Чуть меньший шрифт */
+    }
+  }
+}
+
+/* Мобильные устройства (320px-480px) */
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+    padding: 5px 0.8rem;
+
+    .logo {
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .nav {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+
+    .username {
+      margin-right: 0;
+      text-align: center;
+      padding: 0.3rem 0;
+    }
+
+    .button {
+      width: 100%;
+      text-align: center;
+      padding: 0.6rem;
+    }
+  }
+}
+
+/* Очень маленькие устройства (менее 320px) */
+@media (max-width: 320px) {
+  .header {
+    padding: 6px 0.5rem;
+
+    .logo {
+      font-size: 1rem;
+    }
+
+    .button {
+      font-size: 0.8rem;
+    }
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .header {
+    padding: 8px 0.8rem;
+
+    .nav {
+      gap: 0.8rem;
+    }
+    .button {
+      padding: 0.5rem 0.7rem; /* Еще более компактные отступы */
+      max-width: 160px; /* Уменьшаем максимальную ширину */
+      font-size: 0.9rem; /* Чуть меньший шрифт */
+    }
+  }
+}
+/* Десктоп (1024px+) */
+@media (min-width: 1024px) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 2rem;
+
+    .logo {
+      font-size: 1.5rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: nowrap; // кнопки не будут переноситься
+    }
+
+    .button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      width: auto; // не даём растягиваться
+      flex-shrink: 0;
+    }
+  }
+}

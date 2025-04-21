@@ -1,19 +1,48 @@
-.form {
+/* Основные стили для формы */
+.form /* Форма */ {
+  width: 100%;
+  max-width: 400px; /* Ограничиваем ширину формы */
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    max-width: 300px; /* Увеличиваем ширину формы на больших экранах */
+    padding: 24px;
+  }
 }
 
-.input {
-  padding: 10px;
+/* Поля ввода */
+input {
+  width: 100%;
+  padding: 12px;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
 }
-
-.button {
-  padding: 10px;
+.linkButton {
+  background: none;
+  border: none;
+  color: #3498db;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 12px;
+}
+/* Кнопка */
+button {
+  width: 100%;
+  padding: 12px;
   font-size: 16px;
-  background-color: #1976d2;
+  background-color: #000000;
   color: white;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
 }
