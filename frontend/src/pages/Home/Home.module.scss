@@ -1,40 +1,45 @@
 .container {
-  padding: 2rem;
+  padding: 2rem 1rem; // чуть меньше паддинг по бокам на маленьких экранах
   font-family: sans-serif;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.nav {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.button {
-  background-color: #007bff;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.button:hover {
-  background-color: #0056b3;
-}
-
-.username {
-  font-weight: bold;
-  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .main {
   text-align: center;
+  padding: 2rem 0;
+}
+
+.main h1 {
+  font-size: 1.5rem; // базовый размер для маленьких экранов
+  margin-bottom: 1rem;
+}
+
+.main p {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #444;
+}
+
+/* Адаптив для планшетов и выше */
+@media (min-width: 600px) {
+  .main h1 {
+    font-size: 2rem;
+  }
+
+  .main p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Адаптив для десктопов */
+@media (min-width: 960px) {
+  .main h1 {
+    font-size: 4.5rem;
+  }
+
+  .main p {
+    font-size: 1.2rem;
+  }
 }

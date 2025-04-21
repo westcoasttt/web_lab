@@ -1,0 +1,61 @@
+.errorMessage {
+  max-width: 500px; /* Фиксированная максимальная ширина */
+  width: 100%; /* Занимает доступную ширину, но не более 300px */
+  padding: 1rem;
+  margin: 0 auto 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  background-color: #ffebee;
+  border-left: 4px solid #f44336;
+  color: #d32f2f;
+  position: relative; /* Для позиционирования кнопки закрытия */
+  box-sizing: border-box; /* Чтобы padding не влиял на ширину */
+}
+
+.errorContent {
+  width: 100%; /* Занимает всю ширину родителя */
+  padding-right: 1.5rem;
+  text-align: left; /* Текст внутри выравниваем по левому краю */
+  gap: 0.8rem;
+}
+
+.errorCode {
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-right: 0.8rem;
+}
+
+.errorText {
+  flex: 1;
+  min-width: 0; /* Позволяет тексту переноситься */
+  word-break: break-word; /* Перенос длинных слов */
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 400px) {
+  .errorMessage {
+    max-width: 280px;
+    padding: 0.8rem;
+
+    .closeButton {
+      top: 0.3rem;
+      right: 0.3rem;
+    }
+  }
+}

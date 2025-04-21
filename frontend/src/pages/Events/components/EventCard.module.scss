@@ -1,21 +1,92 @@
+// По умолчанию (320px+), мобильные устройства
 .card {
   background: #fdfdfd;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
 }
 
 .card h2 {
-  font-size: 20px;
+  font-size: 1.2rem;
   margin-bottom: 8px;
+  word-break: break-word;
 }
 
 .card p {
   margin: 4px 0;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 .date {
   font-weight: bold;
   color: #555;
+  margin-top: 8px;
+  display: block;
+}
+
+// 📱 Мобильные устройства (до 480px)
+@media (max-width: 480px) {
+  .card {
+    padding: 12px;
+  }
+
+  .card h2 {
+    font-size: 1rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+  }
+
+  .date {
+    font-size: 0.9rem;
+  }
+}
+
+// 🖥 Планшеты (от 481px до 1023px)
+@media (min-width: 481px) and (max-width: 1023px) {
+  .card {
+    padding: 16px;
+  }
+
+  .card h2 {
+    font-size: 1.2rem;
+  }
+
+  .card p {
+    font-size: 1rem;
+  }
+
+  .date {
+    font-size: 0.95rem;
+  }
+}
+
+// 💻 Десктопные экраны (от 1024px и выше)
+@media (min-width: 1024px) {
+  .card {
+    padding: 20px;
+  }
+
+  .card h2 {
+    font-size: 1.4rem;
+  }
+
+  .card p {
+    font-size: 1.1rem;
+  }
+
+  .date {
+    font-size: 1rem;
+  }
 }

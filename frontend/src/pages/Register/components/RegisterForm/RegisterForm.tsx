@@ -49,6 +49,13 @@ const RegisterForm = () => {
       <button type="button" onClick={goToLogin} className={styles.linkButton}>
         Уже есть аккаунт? Войти
       </button>
+      <button
+        type="button"
+        onClick={() => navigate('/')}
+        className={styles.linkButton}
+      >
+        На главную
+      </button>
     </form>
   );
 };

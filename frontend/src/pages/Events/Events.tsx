@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getEventsPaginated } from '@/api/eventService';
 import EventCard from './components/EventCard';
 import { Event } from '@/types/event';
+import Header from '@/components/header/Header';
 
 const Events = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -14,6 +15,7 @@ const Events = () => {
 
   const navigate = useNavigate();
   const name = getUserName();
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -27,6 +29,9 @@ const Events = () => {
         setEvents(data.events);
         setTotal(data.total);
       } catch (error: any) {
+        setError(
+          `${error.response?.status || 'Unknown'}: ${error.message || 'Ошибка авторизации'}`,
+        );
         console.error(error.message || 'Ошибка при загрузке мероприятий');
       }
     };
@@ -38,6 +43,7 @@ const Events = () => {
 
   return (
     <div className={styles.eventsPage}>
+      <Header />
       <header className={styles.header}>
         <h1>Список мероприятий</h1>
         {name && <p className={styles.welcome}>Привет, {name}!</p>}
