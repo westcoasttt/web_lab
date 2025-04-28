@@ -1,28 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import styles from './Header.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout as clearAuthState } from '@/features/auth/authSlice';
 import Logo from '@/pages/Home/components/Logo';
-import {
-  isAuthenticated,
-  getUserName,
-  logout as clearAuthData,
-} from '@/utils/localStorage';
-
-import { useState, useEffect } from 'react';
+import styles from './Header.module.scss';
 
 const Header = () => {
   const navigate = useNavigate();
-  const [isAuth, setIsAuth] = useState(false);
-  const [userName, setUserName] = useState('');
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector((state: any) => state.auth);
 
-  useEffect(() => {
-    setIsAuth(isAuthenticated());
-    const name = getUserName();
-    if (name) setUserName(name);
-  }, []);
-
-  const logout = () => {
-    clearAuthData();
-    setIsAuth(false);
+  const handleLogout = () => {
+    dispatch(clearAuthState());
     navigate('/');
   };
 
@@ -30,8 +18,40 @@ const Header = () => {
     <header className={styles.header}>
       <Logo />
       <div className={styles.nav}>
-        {!isAuth ? (
+        {/* Кнопки доступны всегда */}
+
+        {/* Если пользователь авторизован */}
+        {isAuthenticated ? (
           <>
+            {user && (
+              <span className={styles.username}>Вы вошли как: {user.name}</span>
+            )}
+            <button onClick={() => navigate('/')} className={styles.button}>
+              Главная
+            </button>
+            <button
+              onClick={() => navigate('/events')}
+              className={styles.button}
+            >
+              Все мероприятия
+            </button>
+            <button
+              onClick={() => navigate('/profile')}
+              className={styles.button}
+            >
+              Профиль
+            </button>
+            <button onClick={handleLogout} className={styles.button}>
+              Выйти
+            </button>
+          </>
+        ) : (
+          // Если пользователь не авторизован
+          <>
+            <button onClick={() => navigate('/')} className={styles.button}>
+              Главная
+            </button>
+
             <button
               onClick={() => navigate('/login')}
               className={styles.button}
@@ -45,20 +65,7 @@ const Header = () => {
               Регистрация
             </button>
           </>
-        ) : (
-          <>
-            <span className={styles.username}>Вы вошли как: {userName}</span>
-            <button onClick={logout} className={styles.button}>
-              Выйти
-            </button>
-            <button onClick={() => navigate('/')} className={styles.button}>
-              Главная
-            </button>
-          </>
         )}
-        <button onClick={() => navigate('/events')} className={styles.button}>
-          Список мероприятий
-        </button>
       </div>
     </header>
   );

@@ -5,6 +5,7 @@ import {
   createEvent,
   updateEvent,
   deleteEvent,
+  getMyEvents,
 } from '../controllers/eventController';
 
 const router = express.Router();
@@ -58,6 +59,10 @@ router.use(passport.authenticate('jwt', { session: false }));
  */
 router.post('/', (req: Request, res: Response) =>
   createEvent(req as AuthenticatedRequest, res),
+);
+
+router.get('/my', (req: Request, res: Response) =>
+  getMyEvents(req as AuthenticatedRequest, res),
 );
 /**
  * @swagger

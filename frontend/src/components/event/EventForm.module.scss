@@ -1,0 +1,124 @@
+@use 'sass:color';
+
+.form {
+  padding-top: 100px;
+  $primary: #4361ee;
+  $error: #ef233c;
+  $text: #2b2d42;
+  $light-gray: #edf2f4;
+  $transition: all 0.3s ease;
+
+  max-width: 28rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: white;
+
+  &__title {
+    text-align: center;
+    color: $text;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3rem;
+      height: 0.25rem;
+      background: $primary;
+      border-radius: 0.125rem;
+    }
+  }
+
+  &__group {
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $text;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid color.scale($light-gray, $lightness: -10%);
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    transition: $transition;
+    background-color: $light-gray;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px color.scale($primary, $alpha: -80%);
+      background-color: white;
+    }
+
+    &--error {
+      border-color: $error;
+    }
+  }
+
+  &__textarea {
+    @extend .form__input;
+    min-height: 6rem;
+    resize: vertical;
+  }
+
+  &__error {
+    color: $error;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  &__submit {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $primary;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition;
+    margin-top: 0.5rem;
+
+    &:hover {
+      background-color: color.scale($primary, $lightness: -10%);
+    }
+
+    &:disabled {
+      background-color: color.scale($primary, $lightness: 30%);
+      cursor: not-allowed;
+    }
+  }
+
+  // Анимация загрузки
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  &__loading {
+    animation: pulse 1.5s infinite;
+  }
+}

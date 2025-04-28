@@ -4,7 +4,6 @@ import styles from './Home.module.scss';
 const Home = () => {
   return (
     <div className={styles.container}>
-      <Header />
       <main className={styles.main}>
         <h1>Добро пожаловать в EventApp!</h1>
         <p>Участвуйте в интересных мероприятиях и следите за обновлениями.</p>
