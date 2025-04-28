@@ -1,6 +1,10 @@
 import express, { Request, Response } from 'express';
 import passport from 'passport';
-import { getUser, updateUser } from '@controllers/userController';
+import {
+  getUser,
+  updateUser,
+  getUserEvents,
+} from '@controllers/userController';
 
 const router = express.Router();
 interface AuthenticatedRequest extends Request {
@@ -30,6 +34,9 @@ router.use(passport.authenticate('jwt', { session: false }));
 
 router.get('/', (req: Request, res: Response) =>
   getUser(req as AuthenticatedRequest, res),
+);
+router.get('/events', (req: Request, res: Response) =>
+  getUserEvents(req as AuthenticatedRequest, res),
 );
 
 /**

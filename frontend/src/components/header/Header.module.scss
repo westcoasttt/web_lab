@@ -1,165 +1,124 @@
 .header {
-  font-family: 'Arial', sans-serif;
-  position: sticky;
+  width: 100%;
+  position: sticky; /* Закрепляем хедер вверху */
   top: 0;
+  left: 0;
   z-index: 10;
-  background-color: #fff;
-  padding: 10px 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1.5rem; /* Убираем лишние отступы */
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  align-items: center; /* Выравниваем по центру вертикально */
 
-  /* Логотип/название */
   .logo {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: #0077cc;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
   }
 
-  /* Основная навигация */
   .nav {
     display: flex;
-    gap: 1rem;
-    align-items: center;
+    align-items: center; /* Центрируем элементы по вертикали */
+    gap: 1.5rem;
     flex-wrap: wrap;
+    justify-content: flex-start; /* Позиционируем элементы слева */
+    padding-top: 0.5rem; /* Отступ сверху */
   }
 
-  /* Кнопки */
   .button {
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     background-color: #0077cc;
-    color: white;
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
     white-space: nowrap;
-    transition: background-color 0.2s ease;
-    font-size: 0.9rem;
+    max-width: 240px;
+    width: auto;
 
     &:hover {
-      background-color: #0066b3;
+      background-color: #005fa3;
     }
   }
 
-  /* Имя пользователя */
   .username {
-    font-weight: bold;
+    font-weight: 600;
+    color: #333333;
     margin-right: 1rem;
     white-space: nowrap;
-    color: #333;
   }
-}
-
-/* === Адаптивность === */
-
-/* Маленькие планшеты и крупные телефоны (481px-768px) */
-@media (max-width: 768px) {
-  .header {
-    padding: 8px 0.8rem;
-
-    .nav {
-      gap: 0.8rem;
-    }
-    .button {
-      padding: 0.5rem 0.7rem; /* Еще более компактные отступы */
-      max-width: 160px; /* Уменьшаем максимальную ширину */
-      font-size: 0.9rem; /* Чуть меньший шрифт */
-    }
-  }
-}
-
-/* Мобильные устройства (320px-480px) */
-@media (max-width: 480px) {
-  .header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.8rem;
-    padding: 5px 0.8rem;
+  /* Мобильная версия */
+  @media (max-width: 480px) {
+    flex-direction: column; /* Ставим элементы в столбик */
+    align-items: flex-start; /* Выравниваем по левому краю */
+    padding: 0.5rem 1rem;
 
     .logo {
-      justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
     }
 
     .nav {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.5rem;
+      width: 100%;
+      justify-content: flex-start;
+      gap: 1rem;
+      margin-top: 0.5rem; /* Отступ сверху после логотипа */
+    }
+
+    .button {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      max-width: 100%; /* Кнопки растягиваются на всю ширину при необходимости */
     }
 
     .username {
-      margin-right: 0;
-      text-align: center;
-      padding: 0.3rem 0;
-    }
-
-    .button {
-      width: 100%;
-      text-align: center;
-      padding: 0.6rem;
+      font-size: 0.9rem;
     }
   }
-}
-
-/* Очень маленькие устройства (менее 320px) */
-@media (max-width: 320px) {
-  .header {
-    padding: 6px 0.5rem;
-
+  // Для планшетов (min-width: 481px и max-width: 1024px)
+  @media (min-width: 481px) and (max-width: 1024px) {
     .logo {
-      font-size: 1rem;
-    }
-
-    .button {
-      font-size: 0.8rem;
-    }
-  }
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-  .header {
-    padding: 8px 0.8rem;
-
-    .nav {
-      gap: 0.8rem;
-    }
-    .button {
-      padding: 0.5rem 0.7rem; /* Еще более компактные отступы */
-      max-width: 160px; /* Уменьшаем максимальную ширину */
-      font-size: 0.9rem; /* Чуть меньший шрифт */
-    }
-  }
-}
-/* Десктоп (1024px+) */
-@media (min-width: 1024px) {
-  .header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 2rem;
-
-    .logo {
-      font-size: 1.5rem;
+      font-size: 1.4rem; /* Увеличиваем размер шрифта */
     }
 
     .nav {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 1.5rem;
-      flex-wrap: nowrap; // кнопки не будут переноситься
+      gap: 1.2rem; /* Увеличиваем промежутки между пунктами */
     }
 
     .button {
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      width: auto; // не даём растягиваться
-      flex-shrink: 0;
+      font-size: 1rem; /* Оставляем как есть */
+    }
+
+    .username {
+      font-size: 1rem; /* Оставляем как есть */
+    }
+  }
+
+  // Для десктопов (min-width: 1025px и выше)
+  @media (min-width: 1025px) {
+    .logo {
+      font-size: 1.6rem; /* Увеличиваем размер шрифта */
+    }
+
+    .nav {
+      gap: 1.5rem; /* Стандартный отступ */
+    }
+
+    .button {
+      font-size: 1.1rem; /* Увеличиваем размер шрифта */
+      padding: 0.7rem 1.3rem; /* Увеличиваем padding */
+    }
+
+    .username {
+      font-size: 1.1rem; /* Увеличиваем размер шрифта */
     }
   }
 }

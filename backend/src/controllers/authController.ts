@@ -12,7 +12,16 @@ interface TokenPayload extends JwtPayload {
 }
 
 export const register = async (req: Request, res: Response): Promise<void> => {
-  const { email, name, password } = req.body;
+  const {
+    email,
+    name,
+    password,
+    firstName,
+    lastName,
+    middleName,
+    gender,
+    birthDate,
+  } = req.body;
 
   if (!email || !name || !password) {
     res.status(400).json({ message: 'Заполните все поля' });
@@ -29,6 +38,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     await User.create({
       email,
       name,
+      firstName,
+      lastName,
+      middleName,
+      gender,
+      birthDate,
       password,
     });
 

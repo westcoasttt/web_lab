@@ -5,6 +5,11 @@ import bcrypt from 'bcryptjs';
 interface UserAttributes {
   id: string;
   name: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  gender: string;
+  birthDate: Date;
   email: string;
   password: string;
   createdAt?: Date;
@@ -20,6 +25,11 @@ type UserCreationAttributes = Omit<
 class User extends Model<UserAttributes, UserCreationAttributes> {
   declare id: string;
   declare name: string;
+  declare firstName: string;
+  declare lastName: string;
+  declare middleName: string;
+  declare gender: 'male' | 'female' | 'other';
+  declare birthDate: Date;
   declare email: string;
   declare password: string;
   declare readonly createdAt: Date;
@@ -50,6 +60,26 @@ User.init(
       validate: {
         isEmail: true,
       },
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    middleName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    gender: {
+      type: DataTypes.ENUM('male', 'female', 'other'),
+      allowNull: false,
+    },
+    birthDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,

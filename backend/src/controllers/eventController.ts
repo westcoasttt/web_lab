@@ -168,6 +168,27 @@ export const deleteEvent = async (
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 };
+export const getMyEvents = async (
+  req: AuthenticatedRequest,
+  res: Response,
+): Promise<void> => {
+  try {
+    if (!req.user) {
+      res.status(401).json({ error: 'Пользователь не авторизован' });
+      return;
+    }
+
+    const events = await Event.findAll({
+      where: { createdBy: req.user.id },
+      order: [['date', 'ASC']],
+    });
+
+    res.status(200).json(events);
+  } catch (error) {
+    console.error('Ошибка при получении мероприятий пользователя:', error);
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+};
 
 // Функция проверки UUID
 const isValidUUID = (id: string): boolean =>

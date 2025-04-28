@@ -27,7 +27,7 @@ console.log(
 
 const corsOptions: CorsOptions = {
   origin: allowedOrigins,
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   preflightContinue: false,
   optionsSuccessStatus: 204,
